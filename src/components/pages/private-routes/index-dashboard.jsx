@@ -12,7 +12,7 @@ export function IndexDashboard() {
     ]
     const longitude = charts.length - 1
     const [showChart, setShowChart] = useState(0)
-    const { accountCategories, accounts, registers } = useLoaderData()
+    const { accountCategories, accounts} = useLoaderData()
     const handleRightCharts = () => {
         if (showChart < longitude) {
             setShowChart(prevState => prevState + 1)
@@ -25,7 +25,7 @@ export function IndexDashboard() {
         }
     }
 
-
+console.log(accountCategories, accounts);
     return (
         <div className="bg-gray-600 p-8 h-full">
             <div className={(showChart === 0 ? '' : 'hidden') + " shadow-lg rounded-lg w-4/5 mx-auto"}>
