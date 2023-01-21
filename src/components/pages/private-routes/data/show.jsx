@@ -8,9 +8,9 @@ export async function loader({ params, request }) {
     const userAuth = await localforage.getItem('userAuth')
     const { accessToken } = userAuth
     const id = params.id
-
+    console.log(accessToken);
     const register = await dataService.getDataId(registers_URL + '/' + id, accessToken)
-    const accounts = await dataService.getData(accounts_URL, accessToken)
+    const accounts = await dataService.getData(accounts_URL, '', {}, accessToken)
 
     return { register, accounts }
 }

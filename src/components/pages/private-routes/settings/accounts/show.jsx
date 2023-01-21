@@ -12,7 +12,7 @@ export async function loader({ params, request }) {
         return redirect('/login')
     }
     let account = await dataService.getDataId(accounts_URL + '/' + id, accessToken)
-    let accountCategories = await dataService.getData(accounts_categories_URL, accessToken)
+    let accountCategories = await dataService.getData(accounts_categories_URL, '', {}, accessToken)
     const accountCategorie = await dataService.getDataId(accounts_categories_URL + '/' + account.account_categorie_id, accessToken)
 
     return { account, accountCategorie, accountCategories }
@@ -39,7 +39,7 @@ export function ShowAccount() {
         sumCredits += cre.amount
     )
     const actual_balance = nf.format(account.initial_deb_balance - account.initial_cre_balance + sumDebits - sumCredits)
-    
+
     return (
         <div className="show-record">
             {

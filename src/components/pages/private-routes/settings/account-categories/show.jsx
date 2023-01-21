@@ -18,7 +18,7 @@ export async function loader({ params }) {
 export function ShowAccountCategorie() {
     const { accountCategorie } = useLoaderData()
     const accountsOfThisCategorie = accountCategorie.accounts
-    
+
     return (
         <div className="show-record">
             {
@@ -34,7 +34,7 @@ export function ShowAccountCategorie() {
                                 <div className="mx-6 grid grid-cols-3 gap-x-6 gap-y-2 mt-2">
                                     {
                                         accountsOfThisCategorie.map((acc) => (
-                                            <div className="border-2 ring-2 border-blue-400 bg-blue-100 ring-blue-300 rounded-full px-2 text-center">
+                                            <div key={acc.name + '-' + acc.type} className="border-2 ring-2 border-blue-400 bg-blue-100 ring-blue-300 rounded-full px-2 text-center">
                                                 <span className="mt-1 text-sm text-blue-800 sm:mt-0">{acc.name}</span>
                                             </div>
                                         ))

@@ -25,7 +25,7 @@ export function IndexDashboard() {
         }
     }
 
-console.log(accountCategories, accounts);
+
     return (
         <div className="bg-gray-600 p-8 h-full">
             <div className={(showChart === 0 ? '' : 'hidden') + " shadow-lg rounded-lg w-4/5 mx-auto"}>

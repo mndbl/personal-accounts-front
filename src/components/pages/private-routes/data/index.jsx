@@ -57,7 +57,7 @@ export async function loader({ params, request }) {
         register.account_id_cre = creditAccount.name
         register.amount = nf.format(register.amount)
     })
-    return { registers, accounts,q }
+    return { registers, accounts, q }
 
 }
 
