@@ -27,6 +27,7 @@ export async function action({ params, request }) {
     }
 
     if (id) {
+
         await dataService.updateData(accounts_URL + '/' + id, data, accessToken)
         return redirect('/dashboard/accounts')
     }
@@ -65,7 +66,7 @@ export function AccountForm() {
                                     >
                                         <option value="">Select</option>
                                         {accountCategories.map((accCat) => (
-                                            <option value={accCat.id}>{accCat.name}</option>
+                                            <option key={`${accCat.id}${accCat.name}`} value={accCat.id}>{accCat.name}</option>
                                         ))}
                                     </select>
                                 </div>

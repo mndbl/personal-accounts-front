@@ -21,7 +21,7 @@ export async function action({ params, request }) {
     const account_id_cre = formData.get('account_id_cre')
     const description = formData.get('description')
     const amount = formData.get('amount')
-    console.log(userAuth);
+  
     const data = {
         date,
         account_id_deb,

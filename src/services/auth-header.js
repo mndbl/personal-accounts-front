@@ -9,6 +9,11 @@ export default function authHeader(currAccToken) {
             }
         }
     } else {
-        return {};
+        return {
+            headers: {
+                'Authorization': null,
+                'Access-Control-Origin': '*.js*'
+            }
+        };
     }
 }

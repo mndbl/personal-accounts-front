@@ -11,11 +11,9 @@ export async function action({ request }) {
     const formData = await request.formData()
     const email = formData.get('email-username')
     const password = formData.get('password-user')
-
     const data = {
         email, password
     }
-
     const userAuth = await authService.login(data)
     if (userAuth.success === false) {
         errorMessage = userAuth.message

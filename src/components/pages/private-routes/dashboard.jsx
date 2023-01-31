@@ -8,10 +8,12 @@ import localforage from 'localforage';
 import { dataService } from '../../../services/data-services';
 import { accounts_categories_URL, accounts_URL, registers_URL } from '../../../config/main.config';
 import { AccountsBalance } from './settings/accounts/accounts-balance';
+import { authService } from '../../../services/auth-services';
 
 export async function loader() {
     const userAuth = await localforage.getItem('userAuth')
     const { accessToken } = userAuth
+    authService.currentUser(accessToken)
     const accounts = await dataService.getData(accounts_URL, '', {}, accessToken)
     const registers = await dataService.getData(registers_URL, '', {}, accessToken)
     const accountCategories = await dataService.getData(accounts_categories_URL, '', {}, accessToken)
@@ -21,7 +23,8 @@ export async function loader() {
 export function Dashboard() {
     const [showColumn, setShowColumn] = useState('hidden')
     const { userAuth, accounts, registers } = useLoaderData()
-    const { userName, accessToken } = userAuth
+    const { accessToken } = userAuth
+    const userName = userAuth.userAuth.name
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -51,7 +54,7 @@ export function Dashboard() {
 
                     <Link to={'/profile'} className='flex items-center w-full space-x-2 h-12 px-3 rounded hover:bg-gray-700 hover:text-gray-300'>
                         <UserCircleIcon className='w-6 h-6' />
-                        <h2 className='font-bold'>{userName}</h2>
+                        <h2 className='font-bold text-xs capitalize'>{userName}</h2>
                     </Link>
                 </div>
             </div>

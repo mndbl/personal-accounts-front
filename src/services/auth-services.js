@@ -9,7 +9,7 @@ const currentUser = async (currAccToken) => {
             return res.data.data;
         })
         .catch((err) => {
-            return err.response.data.message
+            return err.response.data
         })
     return currUser
 }
@@ -42,8 +42,10 @@ const register = async (data) => {
 
 
 const logout = async (currAccToken) => {
-    console.log(currAccToken);
-    const userLogout = await axios.post(API_URL + '/logout', authHeader(currAccToken))
+    const userLogout = await axios.post(API_URL + '/logout', [], authHeader(currAccToken))
+        .then((res) => {
+            return res.data.data;
+        })
         .catch((err) => {
             return err.response.data
         })

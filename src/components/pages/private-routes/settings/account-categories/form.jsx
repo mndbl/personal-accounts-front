@@ -23,6 +23,7 @@ export async function action({ params, request }) {
     }
 
     if (id) {
+      
         await dataService.updateData(accounts_categories_URL + '/' + id, data, accessToken)
         return redirect('/dashboard/account-categories')
     }
@@ -38,7 +39,7 @@ export function AccounCategorieForm() {
     const { id, name, type } = accountCategorie
 
     useEffect(() => {
-        if (accountCategorie.id) {
+        if (id) {
             setMethod('put')
         }
     }, [])
