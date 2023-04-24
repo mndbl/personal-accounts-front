@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import App, { loader as appLoader } from "../App";
+import App, { loader as appLoader, loader } from "../App";
 import {
     Login, loginAction,
     Register, registerAction,
@@ -40,10 +40,7 @@ export const router = createBrowserRouter([
         action: registerAction,
         errorElement: <ErrorPage />
     },
-    {
-        path: '/profile',
-        element: <Profile />
-    },
+   
     {
         path: '/logout',
         element: <Logout />,
@@ -64,6 +61,16 @@ export const router = createBrowserRouter([
                         index: true,
                         element: <IndexDashboard />,
                         loader: dashboardLoader
+                    },
+                    {
+                        path: 'profile',
+                        element: <Profile />,
+                        loader:dashboardLoader
+                    },
+                    {
+                        path: 'profile/edit',
+                        element: <Profile />,
+                        loader:dashboardLoader
                     },
                     {
                         path: 'account-categories',

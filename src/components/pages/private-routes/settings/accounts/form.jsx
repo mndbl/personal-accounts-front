@@ -66,7 +66,7 @@ export function AccountForm() {
                                     >
                                         <option value="">Select</option>
                                         {accountCategories.map((accCat) => (
-                                            <option key={`${accCat.id}${accCat.name}`} value={accCat.id}>{accCat.name}</option>
+                                            <option  key={`${accCat.id}${accCat.name}`} value={accCat.id}>{accCat.name}</option>
                                         ))}
                                     </select>
                                 </div>

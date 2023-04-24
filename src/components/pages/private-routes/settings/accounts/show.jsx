@@ -13,9 +13,8 @@ export async function loader({ params, request }) {
     }
     let account = await dataService.getDataId(accounts_URL + '/' + id, accessToken)
     let accountCategories = await dataService.getData(accounts_categories_URL, '', {}, accessToken)
-    const accountCategorie = await dataService.getDataId(accounts_categories_URL + '/' + account.account_categorie_id, accessToken)
-
-    return { account, accountCategorie, accountCategories }
+    console.log(account);
+    return { account, accountCategories }
 }
 
 
@@ -78,6 +77,8 @@ export function ShowAccount() {
                         <div className="bg-white px-4 py-5 flex justify-end">
                             <WrapButtonsShowItems />
                         </div>
+                        
+                       
                     </div>
                     :
                     <div>

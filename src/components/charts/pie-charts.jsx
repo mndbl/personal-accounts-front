@@ -10,17 +10,31 @@ export function PieChart({ accountsData, accountCategoriesData }) {
     if (accountCategoriesData.error) {
         return
     } else {
+
+        let balance_account = 0
+        let register_debs = 0
+        let register_creds = 0
         accountCategoriesData.forEach(accCat => {
-            let initial_balances = 0
-            const accounts = accountsData.filter((acc) => (
-                acc.account_categorie_id === accCat.id
+
+            const accounts = accountsData.filter((account) => (
+                account.account_categorie_id === accCat.id
             ))
+            balance_account = 0
             accounts.forEach((acc) => {
-                let initial_balance_acc = acc.initial_deb_balance != 0 ? acc.initial_deb_balance : acc.initial_cre_balance
-                initial_balances += Number(initial_balance_acc)
+                register_debs = 0
+                register_creds = 0
+                acc.registers_deb.forEach((deb) => {
+                    register_debs += deb.amount
+                })
+                acc.registers_cre.forEach((cre) => {
+                    register_creds += cre.amount
+                })
+
+                balance_account += Number(acc.initial_deb_balance) - Number(acc.initial_cre_balance) + Number(register_debs) - Number(register_creds)
+
             })
             dataPoints.push({
-                y: initial_balances,
+                y: balance_account,
                 label: accCat.name
             })
         });
@@ -41,7 +55,7 @@ export function PieChart({ accountsData, accountCategoriesData }) {
             showInLegend: "true",
             legendText: "{label}",
             indexLabelFontSize: 16,
-            indexLabel: "{label} - $ {y}",
+            indexLabel: "{label} -> $ {y}",
             dataPoints
         }]
     }

@@ -8,7 +8,7 @@ import { NavLink } from "react-router-dom"
 const itemsSidebar = [
     {
         path: '/dashboard',
-        title: 'Dasboard',
+        title: 'Dashboard',
         svg: <HomeIcon className="w-6 h-6" />
     },
     {

@@ -52,7 +52,7 @@ export function Dashboard() {
                 </div>
                 <div id='logo-section' className='h-16 border-t-2 border-t-gray-500 flex items-center justify-center'>
 
-                    <Link to={'/profile'} className='flex items-center w-full space-x-2 h-12 px-3 rounded hover:bg-gray-700 hover:text-gray-300'>
+                    <Link to={'/dashboard/profile'} className='flex items-center w-full space-x-2 h-12 px-3 rounded hover:bg-gray-700 hover:text-gray-300'>
                         <UserCircleIcon className='w-6 h-6' />
                         <h2 className='font-bold text-xs capitalize'>{userName}</h2>
                     </Link>
