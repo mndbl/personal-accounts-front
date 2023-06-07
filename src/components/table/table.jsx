@@ -5,10 +5,22 @@ import { AddButton } from "../buttons/add-button";
 import { BackButton } from "../buttons/back-button";
 import { DataCellOptions } from "./data-cells-options";
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { nf } from "../../config/main.config";
 
-export function Table({ columns, data, caption, query, filter, setFilter, accounts, balances, balance }) {
+export function Table({
+    columns, data, caption, query, filter, setFilter, accounts, balances, balance }) {
     const location = useLocation()
+    const [initialBalance, setInitialBalance] = useState({
+        initialDebit: 0,
+        initialCredit: 0
+    })
+    const [movements, setMovements] = useState({
+        debits: 0,
+        credits: 0
+    })
+
+    const [results, setResults] = useState(0)
     const [filters, setFilters] = useState(false)
     const {
         getTableProps,
@@ -32,6 +44,46 @@ export function Table({ columns, data, caption, query, filter, setFilter, accoun
     }, useSortBy, usePagination)
 
 
+    useEffect(() => {
+        if (location.pathname === "/dashboard/registers") {
+
+            setInitialBalance({
+                credits: 0,
+                debits: 0
+            })
+            setMovements({
+                credits: 0,
+                debits: 0
+            })
+            setResults(0)
+            if (data[0].account_deb.name === filter) setInitialBalance({
+                initialDebit: data[0].account_deb.initial_deb_balance,
+                initialCredit: data[0].account_deb.initial_cre_balance,
+            });
+            if (data[0].account_cre.name === filter) setInitialBalance({
+                initialDebit: data[0].account_cre.initial_deb_balance,
+                initialCredit: data[0].account_cre.initial_cre_balance,
+            });
+            data.forEach(reg => {
+                if (reg.account_deb.name === filter) {
+                    setMovements(prevMov => ({
+                        ...prevMov,
+                        debits: prevMov.debits + reg.amount
+                    }))
+                }
+                if (reg.account_cre.name === filter) {
+                    setMovements(prevMov => ({
+                        ...prevMov,
+                        credits: prevMov.credits + reg.amount
+                    }))
+                }
+
+            });
+
+            setResults(initialBalance.initialDebit + movements.debits - initialBalance.initialCredit - movements.credits)
+        }
+    }, [filter])
+
     return (
         <div className="flex flex-col w-auto mt-2">
 
@@ -48,15 +100,22 @@ export function Table({ columns, data, caption, query, filter, setFilter, accoun
                                 {filter &&
                                     <span className="relative z-0 inline-flex text-sm rounded-md shadow-sm focus:ring-accent-500 focus:border-accent-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1
                                     items-center px-3 py-3 space-x-2 font-medium text-gray-600 bg-white border border-gray-300 sm:py-2 mr-4">
+                                        <p>Initial Balance:
+                                            <span className={`${initialBalance.initialDebit - initialBalance.initialCredit > 0 ? 'text-blue-800' : 'text-red-700'} ml-2`}>
+                                                {nf.format(initialBalance.initialDebit - initialBalance.initialCredit)}</span>
+                                        </p>
+
                                         <p className="">Debits:
-                                            <span className="ml-2 text-blue-800">{balances.debitsAmount}</span>
+                                            <span className="ml-2 text-blue-800">{nf.format(movements.debits)}</span>
                                         </p>
                                         <p>Credits:
-                                            <span className="ml-2 text-red-700">{balances.creditsAmount}</span>
+                                            <span className="ml-2 text-red-700">{nf.format(movements.credits)}</span>
                                         </p>
                                         <p>Balance:
-                                            <span className={`${balance > 0 ? 'text-blue-800' : 'text-red-700'} ml-2`}>{balance}</span>
+                                            <span className={`${initialBalance.initialDebit + movements.debits - initialBalance.initialCredit - movements.credits > 0 ?
+                                                'text-blue-800' : 'text-red-700'} ml-2`}>{nf.format(initialBalance.initialDebit + movements.debits - initialBalance.initialCredit - movements.credits)}</span>
                                         </p>
+
                                     </span>
                                 }
                                 <button onClick={() => setFilters(!filters)}
@@ -173,8 +232,6 @@ export function Table({ columns, data, caption, query, filter, setFilter, accoun
                                                     )
                                                     )
                                                 }
-
-
                                             </tr>)
                                     })
                                 }

@@ -68,15 +68,7 @@ export async function loader({ request }) {
 export function IndexRegisters() {
     const { registers, accounts } = useLoaderData()
     const [filter, setFilter] = useState('')
-    const [balances, setBalances] = useState({
-        debitsAmount: 0,
-        creditsAmount: 0,
-    })
-    const [balance, setBalance] = useState(0)
-    const [initialBalances, setInitialBalances] = useState({
-        initialDeb: 0,
-        initialCre: 0
-    })
+    
 
     const columns = useMemo(() => registersColumns)
 
@@ -86,43 +78,8 @@ export function IndexRegisters() {
             return reg.account_id_deb === filter || reg.account_id_cre === filter
         })
 
-    useEffect(() => {
-        if (filter != '') {
-            if (filteredRegisters[0].account_id_deb === filter) {
-                setInitialBalances(() => ({
-                    initialCre: filteredRegisters[0].account_deb.initial_cre_balance,
-                    initialDeb: filteredRegisters[0].account_deb.initial_cre_balance
-                }))
-            }
-            if (filteredRegisters[0].account_id_cre === filter) {
-                setInitialBalances(() => ({
-                    initialCre: filteredRegisters[0].account_cre.initial_cre_balance,
-                    initialDeb: filteredRegisters[0].account_cre.initial_cre_balance
-                }))
-            }
-
-        }
-        setBalances({
-            creditsAmount: 0,
-            debitsAmount: 0
-        })
-        filteredRegisters.forEach((reg) => {
-
-            return (reg.account_deb.name === filter ?
-                setBalances((prevReg) => ({
-                    ...prevReg,
-                    debitsAmount: initialBalances.initialDeb + prevReg.debitsAmount + reg.amount,
-                })) :
-                reg.account_cre.name === filter ? setBalances((prevReg) => ({
-                    ...prevReg,
-                    creditsAmount: initialBalances.initialCre + prevReg.creditsAmount + reg.amount,
-                })) : 0)
-        })
-        setBalance(balances.debitsAmount - balances.creditsAmount)
-    }, [filter])
-
     
-    console.log(balance, balances, initialBalances);
+
     const data = useMemo(() => filteredRegisters)
 
 
@@ -136,8 +93,6 @@ export function IndexRegisters() {
                         accounts={accounts}
                         filter={filter}
                         setFilter={setFilter}
-                        balances={balances}
-                        balance={balance}
                     />
                 </>
                 :
