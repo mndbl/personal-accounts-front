@@ -5,8 +5,7 @@ import { accounts_URL, nf, registers_URL } from "../../../../config/main.config"
 import { dataService } from "../../../../services/data-services"
 import { Table } from "../../../table/table"
 import { useState } from "react"
-import { NumericFormat } from "react-number-format"
-import { useEffect } from "react"
+
 
 
 const registersColumns = [

@@ -56,6 +56,10 @@ const accountsColumns = [
         accessor: 'initial_cre_balance'
     },
     {
+        Header: 'actual balance',
+        accessor: 'actual_balance'
+    },
+    {
         Header: 'cutoff date',
         accessor: 'cutoff_date'
     },

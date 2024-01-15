@@ -22,7 +22,7 @@ export async function action({ request }) {
     return redirect('/dashboard')
 }
 
-export function Login(params) {
+export function Login() {
     return (
         <WrapAuthPages title={'Login'} text={'Insert your access information'}>
 
