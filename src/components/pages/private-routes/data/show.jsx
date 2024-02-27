@@ -4,7 +4,7 @@ import { accounts_URL, nf, registers_URL } from "../../../../config/main.config"
 import { dataService } from "../../../../services/data-services";
 import { WrapButtonsShowItems } from "../../../wraps/wrap-buttons-show-items";
 
-export async function loader({ params, request }) {
+export async function loader({ params}) {
     const userAuth = await localforage.getItem('userAuth')
     const { accessToken } = userAuth
     const id = params.id
@@ -18,7 +18,6 @@ export async function loader({ params, request }) {
 
 export function ShowRegister() {
     const { register } = useLoaderData()
-    console.log(register);
     return (
         <div className="show-record">
             {

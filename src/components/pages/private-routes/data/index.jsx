@@ -58,7 +58,6 @@ export async function loader({ request }) {
 
         register.account_id_deb = debitAccount.name
         register.account_id_cre = creditAccount.name
-        //register.amount = nf.format(register.amount)
     })
     return { registers, accounts, q }
 
