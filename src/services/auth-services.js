@@ -42,7 +42,8 @@ const register = async (data) => {
 
 
 const logout = async (currAccToken) => {
-    const userLogout = await axios.post(API_URL + '/logout', [], authHeader(currAccToken))
+    const userLogout = await axios.post(API_URL + '/logout', 
+    [], authHeader(currAccToken))
         .then((res) => {
             return res.data.data;
         })

@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import App, { loader as appLoader, loader } from "../App";
+import App, { loader as appLoader } from "../App";
 import {
     Login, loginAction,
     Register, registerAction,
